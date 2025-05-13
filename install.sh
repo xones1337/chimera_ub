@@ -6,15 +6,17 @@ echo "⚡ Начинаем установку..."
 
 if ! command -v python &> /dev/null; then
     echo "Python не найден. Устанавливаем..."
-    pkg install python
+    pkg install -y python
 fi
 
 if ! command -v pip &> /dev/null; then
-    pkg install python-pip
+    echo "pip не найден. Устанавливаем..."
+    pkg install -y python-pip
 fi
 
 if ! command -v git &> /dev/null; then
-    pkg install git
+    echo "git не найден. Устанавливаем..."
+    pkg install -y git
 fi
 
 git clone https://github.com/xones1337/chimera_ub .
