@@ -32,10 +32,17 @@ git clone https://github.com/xones1337/chimera_ub.git chimera_ub
 cd chimera_ub
 
 if [ -f "requirements.txt" ]; then
-    echo "Устанавливаем зависимости глобально..."
-    pip install -r requirements.txt
+    echo "Проверяем и устанавливаем зависимости..."
+    while read -r package; do
+        if ! pip show "$package" > /dev/null 2>&1; then
+            echo "Устанавливаем $package..."
+            pip install "$package"
+        else
+            echo "$package уже установлен."
+        fi
+    done < requirements.txt
 else
-    echo "Файл requirements.txt не найден. Устанавливаем основные зависимости глобально..."
+    echo "Файл requirements.txt не найден. Устанавливаем основные зависимости..."
     pip install telethon deep_translator mysql-connector-python requests
 fi
 
