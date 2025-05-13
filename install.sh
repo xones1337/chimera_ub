@@ -19,7 +19,11 @@ if ! command -v git &> /dev/null; then
     pkg install -y git
 fi
 
-git clone https://github.com/xones1337/chimera_ub chimera_ub
+if [ -d "chimera_ub" ]; then
+  rm -rf "chimera_ub"
+fi
+
+git clone https://github.com/xones1337/chimera_ub.git chimera_ub
 cd chimera_ub
 
 if [ -f "requirements.txt" ]; then
