@@ -19,6 +19,11 @@ if ! command -v git &> /dev/null; then
     pkg install -y git
 fi
 
+if ! command -v rustc &> /dev/null; then
+    echo "Rust не найден. Устанавливаем..."
+    pkg install -y rust
+fi
+
 if [ -d "chimera_ub" ]; then
   rm -rf "chimera_ub"
 fi
