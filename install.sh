@@ -49,8 +49,5 @@ fi
 
 if ! grep -q "python bot.py" ~/.bashrc; then
     echo "python bot.py &" >> ~/.bashrc
-    echo "⚡ Бот добавлен в автозагрузку."
+    echo "⚡ Бот добавлен в автозагрузку. Теперь вы можете запустить его вручную командой: python bot.py"
 fi
-
-echo "⚡ Запуск..."
-python bot.py &
