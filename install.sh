@@ -28,8 +28,9 @@ if [ -d "chimera_ub" ]; then
   rm -rf "chimera_ub"
 fi
 
-git clone https://github.com/xones1337/chimera_ub.git chimera_ub
-cd chimera_ub
+git clone https://github.com/xones1337/chimera_ub.git temp_dir
+mv temp_dir/* ./
+rm -rf temp_dir
 
 if [ -f "requirements.txt" ]; then
     echo "Проверяем и устанавливаем зависимости..."
@@ -46,6 +47,10 @@ else
     pip install telethon deep_translator mysql-connector-python requests
 fi
 
-echo "python bot.py &" >> ~/.bashrc
-echo "⚡ Бот добавлен в автозагрузку. Запуск..."
+if ! grep -q "python bot.py" ~/.bashrc; then
+    echo "python bot.py &" >> ~/.bashrc
+    echo "⚡ Бот добавлен в автозагрузку."
+fi
+
+echo "⚡ Запуск..."
 python bot.py &
