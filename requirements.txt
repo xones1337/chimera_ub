@@ -1,6 +1,6 @@
-telethon==1.28.5
-googletrans==3.1.0a0
-mysql-connector-python==8.0.33
+telethon
+googletrans
+mysql-connector-python
 requests
-cryptg==0.4.0
-pycryptodome==3.19.1 
+cryptg
+pycryptodome
