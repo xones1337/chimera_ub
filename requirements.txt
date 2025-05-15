@@ -3,4 +3,4 @@ googletrans
 mysql-connector-python
 requests
 cryptg
-pycryptodome
+pycryptdome
