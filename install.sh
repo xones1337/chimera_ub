@@ -44,7 +44,7 @@ if [ -f "requirements.txt" ]; then
     done < requirements.txt
 else
     echo "Файл requirements.txt не найден. Устанавливаем основные зависимости..."
-    pip install telethon deep_translator mysql-connector-python requests
+    pip install telethon deep_translator mysql-connector-python requests pycryptdome
 fi
 
 if ! grep -q "python bot.py" ~/.bashrc; then
