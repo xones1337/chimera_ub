@@ -4,34 +4,33 @@ set -e
 
 echo "⚡ Начинаем установку..."
 
-if ! command -v python &> /dev/null; then
-    echo "Python не найден. Устанавливаем..."
-    pkg install -y python
-fi
+# Функция для установки пакетов
+install_package() {
+    if ! command -v "$1" &> /dev/null; then
+        echo "$1 не найден. Устанавливаем..."
+        pkg install -y "$1"
+    else
+        echo "$1 уже установлен."
+    fi
+}
 
-if ! command -v pip &> /dev/null; then
-    echo "pip не найден. Устанавливаем..."
-    pkg install -y python-pip
-fi
+# Установка необходимых инструментов
+install_package python
+install_package python-pip
+install_package git
+install_package rust
 
-if ! command -v git &> /dev/null; then
-    echo "git не найден. Устанавливаем..."
-    pkg install -y git
-fi
-
-if ! command -v rustc &> /dev/null; then
-    echo "Rust не найден. Устанавливаем..."
-    pkg install -y rust
-fi
-
+# Удаление предыдущей версии проекта, если она существует
 if [ -d "chimera_ub" ]; then
-  rm -rf "chimera_ub"
+    rm -rf "chimera_ub"
 fi
 
+# Клонирование репозитория
 git clone https://github.com/xones1337/chimera_ub.git temp_dir
 mv temp_dir/* ./
 rm -rf temp_dir
 
+# Установка зависимостей из requirements.txt
 if [ -f "requirements.txt" ]; then
     echo "Проверяем и устанавливаем зависимости..."
     while read -r package; do
@@ -44,10 +43,13 @@ if [ -f "requirements.txt" ]; then
     done < requirements.txt
 else
     echo "Файл requirements.txt не найден. Устанавливаем основные зависимости..."
-    pip install telethon deep_translator mysql-connector-python requests pycryptdome
+    pip install telethon deep_translator mysql-connector-python requests asyncio logging pycryptodome
 fi
 
+# Добавление бота в автозагрузку
 if ! grep -q "python bot.py" ~/.bashrc; then
     echo "python bot.py" >> ~/.bashrc
     echo "⚡ Бот добавлен в автозагрузку. Запустите его вручную командой: python bot.py"
 fi
+
+echo "⚡ Установка завершена!"
