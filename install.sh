@@ -46,26 +46,14 @@ else
     pip install telethon deep_translator mysql-connector-python requests asyncio logging pycryptodome
 fi
 
-# Добавление бота в автозагрузку для одной сессии
-AUTOSTART_SCRIPT="$HOME/.autorun_once.sh"
+# Добавление команды для запуска бота в .bashrc
 BASHRC="$HOME/.bashrc"
-
-# Добавляем код для одноразового запуска в .bashrc
-if ! grep -q "autorun_once.sh" "$BASHRC"; then
-    echo -e '\n# Запуск бота только при первой сессии' >> "$BASHRC"
-    echo 'if [ -f ~/.autorun_once.sh ]; then' >> "$BASHRC"
-    echo '    bash ~/.autorun_once.sh' >> "$BASHRC"
-    echo '    rm -f ~/.autorun_once.sh' >> "$BASHRC"
-    echo 'fi' >> "$BASHRC"
-fi
-
-# Создаем скрипт автозапуска
-if [ ! -f "$AUTOSTART_SCRIPT" ]; then
-    echo "cd $(pwd) && python bot.py" > "$AUTOSTART_SCRIPT"
-    chmod +x "$AUTOSTART_SCRIPT"
-    echo "⚡ Бот добавлен в автозагрузку. Запустится при следующем старте Termux."
+if ! grep -q "python bot.py" "$BASHRC"; then
+    echo -e '\n# Автозапуск бота' >> "$BASHRC"
+    echo "cd $(pwd) && python bot.py" >> "$BASHRC"
+    echo "⚡ Команда для запуска бота добавлена в .bashrc."
 else
-    echo "⚠️ Автозагрузка уже активирована. Бот запустится при следующем старте."
+    echo "⚠️ Команда для запуска бота уже добавлена в .bashrc."
 fi
 
 echo "⚡ Установка завершена!"
