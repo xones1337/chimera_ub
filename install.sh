@@ -51,9 +51,7 @@ BASHRC="$HOME/.bashrc"
 if ! grep -q "python bot.py" "$BASHRC"; then
     echo -e '\n# Автозапуск бота' >> "$BASHRC"
     echo "cd $(pwd) && python bot.py" >> "$BASHRC"
-    echo "⚡ Команда для запуска бота добавлена в .bashrc."
-else
-    echo "⚠️ Команда для запуска бота уже добавлена в .bashrc."
+    echo "⚡ Бот добавлен в автозагрузку и запустится при следующем запуске"
 fi
 
 echo "⚡ Установка завершена!"
